@@ -1,11 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { Component} from 'react';
+
+import { View, Text } from 'react-native'
+
+import * as firebase from 'firebase'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import LandingScreen from './components/auth/Landing'
-import * as firebase from 'firebase'
+import RegisterScreen from './components/auth/Register'
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -17,21 +21,68 @@ const firebaseConfig = {
   appId: "1:205084692978:web:1976562e5fc4b4e5521b6b",
   measurementId: "G-EJHMSEFW84"
 };
-
+ 
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig)
 }
 
-
 const Stack = createStackNavigator();
-export default function App() {   
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Landing">
-        <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false}} /> 
-      </Stack.Navigator>
-    </NavigationContainer>
 
-    );
+export class App extends Component {
+  constructor(props){
+    super(props);
+    this.state ={
+      loaded: false,
+    }
+  }
+
+  componentDidMount(){
+    firebase.auth().onAuthStateChanged((user) => {
+      if(!user){
+        this.setState({
+          loggedIn: false,
+          loaded: true,
+        })
+      }else{
+        this.setState({
+          loggedIn: true,
+          loaded: true,
+        })
+      }
+
+    })
+  }
+  render() {
+    const { loggedIn, loaded } = this.state;
+    if(!loaded){
+      return(
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <Text>Loading</Text>
+        </View>
+      ) 
+    }
+
+    if(!loggedIn){
+      return (
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Landing">
+            <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false}} /> 
+            <Stack.Screen name="Register" component={RegisterScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+    
+        );
+    }
+
+    return(
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <Text> User is Logged In</Text>
+      </View>
+    )
+   
+  }
 }
+
+export default App
+
 
