@@ -52,6 +52,7 @@ export class App extends Component {
 
     })
   }
+
   render() {
     const { loggedIn, loaded } = this.state;
     if(!loaded){
