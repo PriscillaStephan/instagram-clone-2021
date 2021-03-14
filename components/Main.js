@@ -4,20 +4,33 @@ import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators }  from 'redux'
 import { fetchUser } from "../redux/actions/index"
+import * as firebase from 'firebase'
+import '@firebase/firestore';
 
 export class Main extends Component {
     componentDidMount(){
        this.props.fetchUser();
     }
     render() {
+        const { currentUser }  = this.props;
+        console.log()
+        if(currentUser==undefined){
+            return(
+                <View></View>
+            )
+        }
         return (
             <View style={{ flex: 1, justifyContent: 'center' }}>
-        <Text> User is Logged In</Text>
+        <Text> {currentUser.name} is Logged In</Text>
       </View>
         )
     }
 }
 
+const mapStateToProps = (store) => ({
+    currentUser: store.userState.currentUser
+})
+
 const mapDispatchProps = (dispatch) => bindActionCreators({fetchUser}, dispatch)
 
-export default connect(null, mapDispatchProps)(Main);
+export default connect(mapStateToProps, mapDispatchProps)(Main);

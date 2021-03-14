@@ -1,7 +1,7 @@
 // make a call to fetch, save the user, to save posts ...
 import * as firebase from 'firebase'
 import { USER_STATE_CHANGE } from '../constants/index'
-
+import '@firebase/firestore';
 //we make a call to our firestore , we get the dispatch 
 // then when we see the snapshot exists and we are able to get data from db, 
 // we'll send the dispatch type and the  current user 
@@ -14,6 +14,7 @@ export function fetchUser() {
         .get()
         .then((snapshot) => {
             if(snapshot.exists){
+                //console.log(snapshot.data())
                 dispatch({
                     type: USER_STATE_CHANGE, currentUser: snapshot.data() })
             }else{
