@@ -1,1 +1,9 @@
-resume video at: 1:28:30
+resume video at: 1:46:25
+
+- handling Navigation on react native
+   1) installing package:
+   -  react navigation.org
+   - react  native vector icon 
+
+adding the bottom Tab Navigator
+
