@@ -7,5 +7,10 @@ resume video at: 1:46:25
 
 adding the bottom Tab Navigator
 
-- changing to the material UI
+- changin to the material UI
 
+- using Camera and Image Gallery
+  1. package installation: expo documentation - expo install expo-camera
+     and  expo install expo-image-picker
+2. Adding An in-app Camera
+3. customizing the camera

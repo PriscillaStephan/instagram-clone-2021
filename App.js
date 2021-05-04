@@ -3,6 +3,8 @@ import React, { Component} from 'react';
 
 import { View, Text } from 'react-native'
 
+import * as firebase from 'firebase'
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -19,7 +21,6 @@ import thunk from 'redux-thunk'
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
 
-import * as firebase from 'firebase'
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCyddOcvyr1WoygBIRUsMbtFr2xWvNfeOc",
@@ -39,7 +40,7 @@ const Stack = createStackNavigator();
 
 export class App extends Component {
   constructor(props){
-    super(props);
+    super()
     this.state ={
       loaded: false,
     }
@@ -100,5 +101,3 @@ export class App extends Component {
 }
 
 export default App
-
-
